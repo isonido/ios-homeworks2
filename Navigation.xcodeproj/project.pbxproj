@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0EE569292EAB0E00487F2C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE568292EAB0E00487F2C /* FeedViewController.swift */; };
+		FA0EE56B292EAB2D00487F2C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EE56A292EAB2D00487F2C /* ProfileViewController.swift */; };
 		FA6AE071292E9ADA000B2EED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6AE070292E9ADA000B2EED /* AppDelegate.swift */; };
 		FA6AE073292E9ADA000B2EED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6AE072292E9ADA000B2EED /* SceneDelegate.swift */; };
 		FA6AE075292E9ADA000B2EED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6AE074292E9ADA000B2EED /* ViewController.swift */; };
-		FA6AE078292E9ADA000B2EED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA6AE076292E9ADA000B2EED /* Main.storyboard */; };
 		FA6AE07A292E9ADC000B2EED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA6AE079292E9ADC000B2EED /* Assets.xcassets */; };
 		FA6AE07D292E9ADC000B2EED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA6AE07B292E9ADC000B2EED /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA0EE568292EAB0E00487F2C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		FA0EE56A292EAB2D00487F2C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FA6AE06D292E9ADA000B2EED /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6AE070292E9ADA000B2EED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA6AE072292E9ADA000B2EED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FA6AE074292E9ADA000B2EED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FA6AE077292E9ADA000B2EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA6AE079292E9ADC000B2EED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA6AE07C292E9ADC000B2EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA6AE07E292E9ADC000B2EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,8 +60,9 @@
 			children = (
 				FA6AE070292E9ADA000B2EED /* AppDelegate.swift */,
 				FA6AE072292E9ADA000B2EED /* SceneDelegate.swift */,
+				FA0EE568292EAB0E00487F2C /* FeedViewController.swift */,
+				FA0EE56A292EAB2D00487F2C /* ProfileViewController.swift */,
 				FA6AE074292E9ADA000B2EED /* ViewController.swift */,
-				FA6AE076292E9ADA000B2EED /* Main.storyboard */,
 				FA6AE079292E9ADC000B2EED /* Assets.xcassets */,
 				FA6AE07B292E9ADC000B2EED /* LaunchScreen.storyboard */,
 				FA6AE07E292E9ADC000B2EED /* Info.plist */,
@@ -127,7 +130,6 @@
 			files = (
 				FA6AE07D292E9ADC000B2EED /* LaunchScreen.storyboard in Resources */,
 				FA6AE07A292E9ADC000B2EED /* Assets.xcassets in Resources */,
-				FA6AE078292E9ADA000B2EED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,8 @@
 			files = (
 				FA6AE075292E9ADA000B2EED /* ViewController.swift in Sources */,
 				FA6AE071292E9ADA000B2EED /* AppDelegate.swift in Sources */,
+				FA0EE56B292EAB2D00487F2C /* ProfileViewController.swift in Sources */,
+				FA0EE569292EAB0E00487F2C /* FeedViewController.swift in Sources */,
 				FA6AE073292E9ADA000B2EED /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +151,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FA6AE076292E9ADA000B2EED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA6AE077292E9ADA000B2EED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FA6AE07B292E9ADC000B2EED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -291,7 +287,6 @@
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -318,7 +313,6 @@
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
