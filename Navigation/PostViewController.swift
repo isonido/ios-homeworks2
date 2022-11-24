@@ -7,19 +7,12 @@
 
 import UIKit
 
-class PostViewController: UIViewController, NewDataProtocol {
-    
-    func setNewData(data: Post) {
-        self.navigationItem.title = data.title
-        print(data.title)
-    }
+class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let vc = FeedViewController()
-        //vc.delegate = self
-        //self.navigationItem.title = del
-        self.navigationItem.title = "Мой пост"
+
+        //self.navigationItem.title = "Мой пост"
 
         self.view.backgroundColor = .brown
         
