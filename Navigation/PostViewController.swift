@@ -18,8 +18,9 @@ class PostViewController: UIViewController, NewDataProtocol {
         super.viewDidLoad()
         //let vc = FeedViewController()
         //vc.delegate = self
-        //self.navigationItem.title = newTitle
+        //self.navigationItem.title = del
         self.navigationItem.title = "Мой пост"
+
         self.view.backgroundColor = .brown
         
         let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(buttonClick(sender: )))
