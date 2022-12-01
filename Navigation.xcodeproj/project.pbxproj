@@ -69,11 +69,19 @@
 				FA0EE56C292EB15200487F2C /* PostViewController.swift */,
 				FA5AA1AA292FC92700F81990 /* InfoViewController.swift */,
 				FA6AE074292E9ADA000B2EED /* ViewController.swift */,
+				FA893D3C2939310E00325B79 /* Profile */,
 				FA6AE079292E9ADC000B2EED /* Assets.xcassets */,
 				FA6AE07B292E9ADC000B2EED /* LaunchScreen.storyboard */,
 				FA6AE07E292E9ADC000B2EED /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		FA893D3C2939310E00325B79 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
