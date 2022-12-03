@@ -8,6 +8,7 @@
 import UIKit
 
 class ProfileHeaderView: UIView {
+    var status: UITextField!
     
     init() {
         super.init(frame: CGRect.zero)
@@ -33,7 +34,7 @@ class ProfileHeaderView: UIView {
         name.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(name)
         
-        let status = UILabel(frame: .zero)
+        status = UITextField(frame: .zero)
         status.textAlignment = .left
         status.text = "Waiting for something"
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -51,7 +52,7 @@ class ProfileHeaderView: UIView {
         btn.layer.shadowRadius = 4.0
         btn.layer.cornerRadius = 4.0
         btn.translatesAutoresizingMaskIntoConstraints = false
-        //btn.addTarget(self, action: "changeLabel", forControlEvents: UIControlEvents.TouchUpInside)
+        btn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         self.addSubview(btn)
         
         NSLayoutConstraint.activate([
@@ -61,7 +62,6 @@ class ProfileHeaderView: UIView {
             imageView.heightAnchor.constraint(equalToConstant: 100),
             btn.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             btn.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            //btn.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             btn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32),
             btn.heightAnchor.constraint(equalToConstant: 50),
             name.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
@@ -73,6 +73,11 @@ class ProfileHeaderView: UIView {
             status.widthAnchor.constraint(equalToConstant: 150),
             status.heightAnchor.constraint(equalToConstant: 21)
         ])
+    }
+    
+    @objc func buttonPressed(sender:UIButton){
+        
+        print(status.text ?? "")
     }
 
         required init?(coder aDecoder: NSCoder) {
