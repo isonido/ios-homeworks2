@@ -76,7 +76,6 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed(sender:UIButton){
-        
         print(status.text ?? "")
     }
 
