@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileHeaderView: UIView {
-    var status: UITextField!
     
     init() {
         super.init(frame: CGRect.zero)
@@ -17,42 +16,9 @@ class ProfileHeaderView: UIView {
     }
 
     func loadObject() {
-        let imageView = UIImageView(frame: .zero)
-        imageView.image = UIImage(named: "dog")
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 50
-        imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(imageView)
-        
-        let name = UILabel(frame: .zero)
-        name.textAlignment = .left
-        name.text = "Hipster Dog"
-        name.font = UIFont.boldSystemFont(ofSize: 18.0)
-        name.textColor = .black
-        name.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(name)
-        
-        status = UITextField(frame: .zero)
-        status.textAlignment = .left
-        status.text = "Waiting for something"
-        status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        status.textColor = .gray
-        status.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(status)
-        
-        let btn = UIButton(frame: .zero)
-        btn.backgroundColor = .systemBlue
-        btn.setTitle("Show status", for: .normal)
-        btn.tintColor = .white
-        btn.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
-        btn.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
-        btn.layer.shadowOpacity = 0.7
-        btn.layer.shadowRadius = 4.0
-        btn.layer.cornerRadius = 4.0
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         self.addSubview(btn)
         
         NSLayoutConstraint.activate([
@@ -75,12 +41,57 @@ class ProfileHeaderView: UIView {
         ])
     }
     
+    private var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "dog")
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 50
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private var name: UILabel = {
+        let name = UILabel()
+        name.textAlignment = .left
+        name.text = "Hipster Dog"
+        name.font = UIFont.boldSystemFont(ofSize: 18.0)
+        name.textColor = .black
+        name.translatesAutoresizingMaskIntoConstraints = false
+        return name
+    }()
+    
+    private var status: UITextField = {
+        let status = UITextField()
+        status.textAlignment = .left
+        status.text = "Waiting for something"
+        status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        status.textColor = .gray
+        status.translatesAutoresizingMaskIntoConstraints = false
+        return status
+    }()
+    
+    private lazy var btn: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .systemBlue
+        btn.setTitle("Show status", for: .normal)
+        btn.tintColor = .white
+        btn.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
+        btn.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
+        btn.layer.shadowOpacity = 0.7
+        btn.layer.shadowRadius = 4.0
+        btn.layer.cornerRadius = 4.0
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        return btn
+    }()
+    
     @objc func buttonPressed(sender:UIButton){
         print(status.text ?? "")
     }
 
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-            
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

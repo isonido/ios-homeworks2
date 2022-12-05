@@ -7,10 +7,6 @@
 
 import UIKit
 
-struct Post {
-    let title: String
-}
-
 class FeedViewController: UIViewController {
 
     let post = Post(title: "Новый пост")
@@ -22,11 +18,11 @@ class FeedViewController: UIViewController {
         btn.backgroundColor = .blue
         btn.setTitle("Пост", for: .normal)
         btn.frame = CGRect(x: 100, y: 100, width: 200, height: 100)
-        btn.addTarget(self, action: #selector(btnClick(sender: )), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         self.view.addSubview(btn)
     }
     
-    @IBAction func btnClick(sender:UIButton){
+    @objc func btnClick(sender:UIButton){
         let postView = PostViewController()
         postView.navigationItem.title = post.title
         self.navigationController?.pushViewController(postView, animated: true)
