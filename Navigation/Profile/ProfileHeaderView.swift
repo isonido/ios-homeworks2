@@ -9,38 +9,6 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    init() {
-        super.init(frame: CGRect.zero)
-        
-        loadObject()
-    }
-
-    func loadObject() {
-        self.addSubview(imageView)
-        self.addSubview(name)
-        self.addSubview(status)
-        self.addSubview(btn)
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-            btn.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            btn.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            btn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32),
-            btn.heightAnchor.constraint(equalToConstant: 50),
-            name.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            name.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 140),
-            name.widthAnchor.constraint(equalToConstant: 150),
-            name.heightAnchor.constraint(equalToConstant: 21),
-            status.bottomAnchor.constraint(equalTo: btn.topAnchor, constant: -34),
-            status.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 140),
-            status.widthAnchor.constraint(equalToConstant: 150),
-            status.heightAnchor.constraint(equalToConstant: 21)
-        ])
-    }
-    
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "dog")
@@ -87,8 +55,43 @@ class ProfileHeaderView: UIView {
         return btn
     }()
     
+    init() {
+        super.init(frame: CGRect.zero)
+        
+        loadObject()
+        setup()
+    }
+
+    func loadObject() {
+        self.addSubview(imageView)
+        self.addSubview(name)
+        self.addSubview(status)
+        self.addSubview(btn)
+    }
+    
     @objc func buttonPressed(sender:UIButton){
         print(status.text ?? "")
+    }
+    
+    private func setup() {
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            imageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            btn.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            btn.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            btn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32),
+            btn.heightAnchor.constraint(equalToConstant: 50),
+            name.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
+            name.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 140),
+            name.widthAnchor.constraint(equalToConstant: 150),
+            name.heightAnchor.constraint(equalToConstant: 21),
+            status.bottomAnchor.constraint(equalTo: btn.topAnchor, constant: -34),
+            status.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 140),
+            status.widthAnchor.constraint(equalToConstant: 150),
+            status.heightAnchor.constraint(equalToConstant: 21)
+        ])
     }
 
     required init?(coder aDecoder: NSCoder) {
