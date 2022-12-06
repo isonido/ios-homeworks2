@@ -7,6 +7,10 @@
 
 import UIKit
 
+struct Post {
+    let title: String
+}
+
 class PostViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -16,11 +20,11 @@ class PostViewController: UIViewController {
 
         self.view.backgroundColor = .brown
         
-        let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(buttonClick(sender: )))
+        let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(buttonClick))
         self.navigationItem.rightBarButtonItem = button
     }
     
-    @IBAction func buttonClick(sender:UIButton){
+    @objc func buttonClick(sender:UIButton){
         let infoView = InfoViewController()
 
         self.present(infoView, animated: true, completion: nil)
