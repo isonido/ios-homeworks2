@@ -7,10 +7,6 @@
 
 import UIKit
 
-struct Post {
-    let title: String
-}
-
 class PostViewController: UIViewController {
     
     override func viewDidLoad() {
