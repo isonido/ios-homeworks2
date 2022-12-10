@@ -14,7 +14,6 @@ class LogInViewController: UIViewController {
         scrollView.backgroundColor = .white
         scrollView.frame = view.bounds
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
-        //scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
@@ -82,6 +81,16 @@ class LogInViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeKeyboardEvents()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setupViews() {
         self.view.addSubview(scrollView)
         scrollView.addSubview(logoVk)
@@ -89,10 +98,27 @@ class LogInViewController: UIViewController {
         textFieldContainer.addSubview(loginTf)
         textFieldContainer.addSubview(passwordTf)
         scrollView.addSubview(logInButton)
+        
+        scrollView.keyboardDismissMode = .interactive
     }
     
     @objc func buttonPressed(sender:UIButton){
-        print("")
+        let profileViewController = ProfileViewController()
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+    }
+    
+    func subscribeKeyboardEvents(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        guard let ks = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
+        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ks.height - self.view.safeAreaInsets.bottom + 120, right: 0)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        self.scrollView.contentInset = .zero
     }
 
     private func setupLayout() {
