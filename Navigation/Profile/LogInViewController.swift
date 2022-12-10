@@ -7,6 +7,17 @@
 
 import UIKit
 
+extension UIImage {
+
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+}
+
 class LogInViewController: UIViewController {
 
     private lazy var scrollView: UIScrollView = {
@@ -30,7 +41,11 @@ class LogInViewController: UIViewController {
     private lazy var logInButton: UIButton = {
         let logInButton = UIButton()
         let imageColor = UIImage(named: "blue_pixel")
+        let imageColorAlpha = UIImage(named: "blue_pixel")!.alpha(0.8)
+
         logInButton.setBackgroundImage(imageColor, for: .normal)
+        logInButton.setImage(imageColorAlpha, for: [.selected, .highlighted, .disabled])
+        
         logInButton.setTitle("Log In", for: .normal)
         logInButton.layer.masksToBounds = true
         logInButton.tintColor = .white
