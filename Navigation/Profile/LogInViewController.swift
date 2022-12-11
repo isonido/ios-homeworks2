@@ -7,30 +7,19 @@
 
 import UIKit
 
-extension UIImage {
-
-    func alpha(_ value:CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-}
-
 class LogInViewController: UIViewController {
 
-    private lazy var scrollView: UIScrollView = {
-       let scrollView = UIScrollView()
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
-        scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
     private var textFieldContainer: UIView = {
         let textFieldContainer = UIView()
         textFieldContainer.backgroundColor = .lightGray
+        textFieldContainer.layer.masksToBounds = true
         textFieldContainer.layer.cornerRadius = 10
         textFieldContainer.layer.borderWidth = 0.5
         textFieldContainer.layer.borderColor = UIColor.lightGray.cgColor
@@ -66,7 +55,8 @@ class LogInViewController: UIViewController {
         let loginTf = UITextField()
         loginTf.backgroundColor = .systemGray6
         loginTf.textAlignment = .left
-        loginTf.placeholder = "  Email of phone"
+        loginTf.placeholder = "Email of phone"
+        loginTf.setLeftPaddingPoints(10)
         loginTf.font = UIFont.systemFont(ofSize: 16)
         loginTf.textColor = .black
         loginTf.tintColor = UIColor(named: "AccentColor")
@@ -80,7 +70,8 @@ class LogInViewController: UIViewController {
         passwordTf.backgroundColor = .systemGray6
         passwordTf.isSecureTextEntry = true
         passwordTf.textAlignment = .left
-        passwordTf.placeholder = "  Password"
+        passwordTf.placeholder = "Password"
+        passwordTf.setLeftPaddingPoints(10)
         passwordTf.font = UIFont.systemFont(ofSize: 16)
         passwordTf.textColor = .black
         passwordTf.tintColor = UIColor(named: "AccentColor")
@@ -104,6 +95,12 @@ class LogInViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     
     private func setupViews() {
@@ -113,7 +110,6 @@ class LogInViewController: UIViewController {
         textFieldContainer.addSubview(loginTf)
         textFieldContainer.addSubview(passwordTf)
         scrollView.addSubview(logInButton)
-        
         scrollView.keyboardDismissMode = .interactive
     }
     
@@ -129,7 +125,7 @@ class LogInViewController: UIViewController {
     
     @objc func keyboardWillShow(_ notification: NSNotification){
         guard let ks = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
-        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ks.height - self.view.safeAreaInsets.bottom + 120, right: 0)
+        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ks.height - self.view.safeAreaInsets.bottom + 20, right: 0)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification){
@@ -140,6 +136,11 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         NSLayoutConstraint.activate([
+            scrollView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            scrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            
             logoVk.heightAnchor.constraint(equalToConstant: 100),
             logoVk.widthAnchor.constraint(equalToConstant: 100),
             logoVk.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
@@ -166,5 +167,24 @@ class LogInViewController: UIViewController {
             logInButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+}
+
+extension UIImage {
+
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+}
+
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
     }
 }
