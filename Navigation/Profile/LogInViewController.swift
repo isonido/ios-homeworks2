@@ -16,6 +16,13 @@ class LogInViewController: UIViewController {
         return scrollView
     }()
     
+    private var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
     private var textFieldContainer: UIView = {
         let textFieldContainer = UIView()
         textFieldContainer.backgroundColor = .lightGray
@@ -95,21 +102,17 @@ class LogInViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     
     private func setupViews() {
         self.view.addSubview(scrollView)
-        scrollView.addSubview(logoVk)
-        scrollView.addSubview(textFieldContainer)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(logoVk)
+        contentView.addSubview(textFieldContainer)
         textFieldContainer.addSubview(loginTf)
         textFieldContainer.addSubview(passwordTf)
-        scrollView.addSubview(logInButton)
+        contentView.addSubview(logInButton)
+        
         scrollView.keyboardDismissMode = .interactive
     }
     
@@ -125,7 +128,7 @@ class LogInViewController: UIViewController {
     
     @objc func keyboardWillShow(_ notification: NSNotification){
         guard let ks = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
-        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ks.height - self.view.safeAreaInsets.bottom + 20, right: 0)
+        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ks.height - self.view.safeAreaInsets.bottom + 16, right: 0)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification){
@@ -136,20 +139,26 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         NSLayoutConstraint.activate([
-            scrollView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-            scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            scrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             logoVk.heightAnchor.constraint(equalToConstant: 100),
             logoVk.widthAnchor.constraint(equalToConstant: 100),
-            logoVk.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            logoVk.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120),
+            logoVk.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            logoVk.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
             
             textFieldContainer.topAnchor.constraint(equalTo: logoVk.bottomAnchor, constant: 120),
-            textFieldContainer.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            textFieldContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            textFieldContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            textFieldContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            textFieldContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            textFieldContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             textFieldContainer.heightAnchor.constraint(equalToConstant: 100),
             
             loginTf.topAnchor.constraint(equalTo: textFieldContainer.topAnchor),
@@ -163,15 +172,15 @@ class LogInViewController: UIViewController {
             passwordTf.heightAnchor.constraint(equalToConstant: 49.75),
             
             logInButton.topAnchor.constraint(equalTo: textFieldContainer.bottomAnchor, constant: 16),
-            logInButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            logInButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            logInButton.heightAnchor.constraint(equalToConstant: 50)
+            logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            logInButton.heightAnchor.constraint(equalToConstant: 50),
+            logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
 
 extension UIImage {
-
     func alpha(_ value:CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
