@@ -18,11 +18,11 @@ class InfoViewController: UIViewController {
         btn.backgroundColor = .red
         btn.setTitle("Пост", for: .normal)
         btn.frame = CGRect(x: 100, y: 100, width: 200, height: 100)
-        btn.addTarget(self, action: #selector(btnClick(sender: )), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         self.view.addSubview(btn)
     }
     
-    @IBAction func btnClick(sender:UIButton){
+    @objc func btnClick(sender:UIButton){
         let alert = UIAlertController(title: "Ошибка", message: "Сообщение", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (action: UIAlertAction!) in
           print("Нажали Отмена")
