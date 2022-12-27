@@ -7,46 +7,60 @@
 
 import UIKit
 
+private var cellID = "PostTableViewCell"
+
 class ProfileViewController: UIViewController {
 
-    let profileHeaderView = ProfileHeaderView()
-    
-    private lazy var changeTitleBtn: UIButton = {
-        let changeTitleBtn = UIButton()
-        changeTitleBtn.backgroundColor = .systemBlue
-        changeTitleBtn.setTitle("Change title", for: .normal)
-        changeTitleBtn.tintColor = .white
-        changeTitleBtn.translatesAutoresizingMaskIntoConstraints = false
-        changeTitleBtn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        return changeTitleBtn
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellID)
+        return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.addSubview(profileHeaderView)
-        self.view.addSubview(changeTitleBtn)
-        setup()
+        view.addSubview(tableView)
+        setupTableView()
     }
-    
-    @objc func buttonPressed(sender:UIButton){
-        title = "Изменили тайтл"
-    }
-    
-    private func setup() {
-        self.view.backgroundColor = .lightGray
-        title = "Профиль"
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        
+
+    private func setupTableView() {
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            changeTitleBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            changeTitleBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            changeTitleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            changeTitleBtn.heightAnchor.constraint(equalToConstant: 50)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = ProfileHeaderView()
+        headerView.backgroundColor = .white
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 170
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
+        cell.authorCell.text = dataSource[indexPath.row].author
+        cell.imageCell.image = UIImage(named: dataSource[indexPath.row].image)
+        cell.descriptionCell.text = dataSource[indexPath.row].description
+        cell.likesCell.text = "Likes: \(dataSource[indexPath.row].likes)"
+        cell.viewsCell.text = "Views: \(dataSource[indexPath.row].views)"
+        return cell
     }
 }
