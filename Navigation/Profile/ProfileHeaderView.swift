@@ -57,7 +57,7 @@ class ProfileHeaderView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        backgroundColor = .white
+        backgroundColor = .systemGray5
         loadObject()
         setup()
     }

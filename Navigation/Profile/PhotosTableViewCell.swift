@@ -15,13 +15,15 @@ class PhotosTableViewCell: UITableViewCell {
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 24.0)
         title.textColor = .black
+        title.text = "Photos"
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
 
     private lazy var arrowButton: UIButton = {
         let arrowButton = UIButton()
-        arrowButton.setImage(UIImage(systemName: "search"), for: .normal)
+        arrowButton.setImage(UIImage(systemName: "arrow.forward"), for: .normal)
+        arrowButton.tintColor = .black
         arrowButton.translatesAutoresizingMaskIntoConstraints = false
         return arrowButton
     }()
@@ -42,10 +44,13 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubview(title)
         contentView.addSubview(arrowButton)
         contentView.addSubview(previewCollectionView)
+        contentView.backgroundColor = .white
         setupLayout()
     }
     
     private func setupLayout() {
+        let sizeItem = (UIScreen.main.bounds.width - 24) / 4
+        
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -56,7 +61,8 @@ class PhotosTableViewCell: UITableViewCell {
             previewCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             previewCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             previewCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            previewCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+            previewCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            previewCollectionView.heightAnchor.constraint(equalToConstant: sizeItem)
         ])
     }
     
@@ -73,6 +79,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = previewCollectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PhotosCollectionViewCell
         cell.image.image = UIImage(named: photos[indexPath.item])
+        cell.image.layer.cornerRadius = 6.0
         return cell
     }
 }
@@ -88,15 +95,10 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        /*
-        let viewController = Photo()
-        viewController.name = photos[indexPath.row]
-
         if let tv = superview as? UITableView {
             if let vc = tv.dataSource as? UIViewController {
-                vc.navigationController?.pushViewController(viewController, animated: true)
+                vc.navigationController?.pushViewController(PhotosViewController(), animated: true)
             }
         }
-        */
     }
 }

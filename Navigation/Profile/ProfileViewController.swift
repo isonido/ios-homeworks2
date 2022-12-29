@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .systemGray5
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,12 +31,11 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        //navigationController?.tabBarController?.tabBar.isHidden = false
     }
 
     private func setupTableView() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -55,8 +54,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == 0 ? 185 : 0
-        //return 185
+        section == 0 ? 195 : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,11 +71,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.viewsCell.text = "Views: \(dataSource[indexPath.row].views)"
             return cell
         } else {
-            return PostTableViewCell()
+            return PhotosTableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            navigationController?.pushViewController(PhotosViewController(), animated: true)
-        }
+        navigationController?.pushViewController(PhotosViewController(), animated: true)
+    }
 }

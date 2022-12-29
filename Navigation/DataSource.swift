@@ -14,4 +14,4 @@ var dataSource: [Post] = [
     Post(author: "Sasha", description: "Зарегистрируетесь на маркетплейсе, создадите карточки товаров, сформируете поставки, разберётесь в аналитике и SЕО", image: "sasha", likes: 7, views: 80)
 ]
 
-let photos = ["andrey","maria","petr","sasha"]
+let photos = ["andrey","maria","petr","sasha","all","unnamed1","unnamed2","unnamed3","unnamed4","unnamed5","unnamed6","unnamed7","unnamed8","unnamed9","unnamed10","unnamed11","unnamed12","unnamed13","unnamed14","unnamed15","unnamed16","unnamed17","unnamed18","unnamed19","unnamed20"]
