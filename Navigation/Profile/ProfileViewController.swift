@@ -76,6 +76,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(PhotosViewController(), animated: true)
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
     }
 }
