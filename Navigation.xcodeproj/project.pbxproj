@@ -78,14 +78,9 @@
 		FA6AE06F292E9ADA000B2EED /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				FA6AE070292E9ADA000B2EED /* AppDelegate.swift */,
-				FA6AE072292E9ADA000B2EED /* SceneDelegate.swift */,
-				FA0EE568292EAB0E00487F2C /* FeedViewController.swift */,
-				FA0EE56C292EB15200487F2C /* PostViewController.swift */,
-				FA40D850293F6B8B009590FC /* Post.swift */,
-				FA54703A294BC24D00D0BD64 /* DataSource.swift */,
-				FA5AA1AA292FC92700F81990 /* InfoViewController.swift */,
-				FA6AE074292E9ADA000B2EED /* ViewController.swift */,
+				FAC056842965C5F40067DC18 /* Application */,
+				FAC056852965C66C0067DC18 /* Controllers */,
+				FAC056832965C59A0067DC18 /* Models */,
 				FA893D3C2939310E00325B79 /* Profile */,
 				FA6AE079292E9ADC000B2EED /* Assets.xcassets */,
 				FA6AE07B292E9ADC000B2EED /* LaunchScreen.storyboard */,
@@ -97,15 +92,44 @@
 		FA893D3C2939310E00325B79 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				FA0EE56A292EAB2D00487F2C /* ProfileViewController.swift */,
+				FA54703C294BC4DE00D0BD64 /* PostTableViewCell.swift */,
 				FA0C616A295B7F5F00423542 /* PhotosTableViewCell.swift */,
 				FA0C616C295B88B900423542 /* PhotosCollectionViewCell.swift */,
 				FA893D3D293931B800325B79 /* ProfileHeaderView.swift */,
-				FA0A78C4294275980029D8D7 /* LogInViewController.swift */,
-				FA54703C294BC4DE00D0BD64 /* PostTableViewCell.swift */,
-				FA0C616E295B967300423542 /* PhotosViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		FAC056832965C59A0067DC18 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA54703A294BC24D00D0BD64 /* DataSource.swift */,
+				FA40D850293F6B8B009590FC /* Post.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FAC056842965C5F40067DC18 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				FA6AE070292E9ADA000B2EED /* AppDelegate.swift */,
+				FA6AE072292E9ADA000B2EED /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		FAC056852965C66C0067DC18 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA5AA1AA292FC92700F81990 /* InfoViewController.swift */,
+				FA0EE568292EAB0E00487F2C /* FeedViewController.swift */,
+				FA0A78C4294275980029D8D7 /* LogInViewController.swift */,
+				FA0C616E295B967300423542 /* PhotosViewController.swift */,
+				FA0EE56C292EB15200487F2C /* PostViewController.swift */,
+				FA0EE56A292EAB2D00487F2C /* ProfileViewController.swift */,
+				FA6AE074292E9ADA000B2EED /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -7,10 +7,10 @@
 
 import UIKit
 
-private var cellID = "PostTableViewCell"
-
 class ProfileViewController: UIViewController {
 
+    private var cellID = "PostTableViewCell"
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray5
