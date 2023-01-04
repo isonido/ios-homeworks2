@@ -7,10 +7,10 @@
 
 import UIKit
 
-private var identifier = "Identifier"
-
 class PhotosTableViewCell: UITableViewCell {
 
+    private var identifier = "Identifier"
+    
     private var title: UILabel = {
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 24.0)

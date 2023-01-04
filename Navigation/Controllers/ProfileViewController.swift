@@ -7,10 +7,10 @@
 
 import UIKit
 
-private var cellID = "PostTableViewCell"
-
 class ProfileViewController: UIViewController {
 
+    private var cellID = "PostTableViewCell"
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray5
@@ -76,6 +76,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(PhotosViewController(), animated: true)
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
     }
 }
