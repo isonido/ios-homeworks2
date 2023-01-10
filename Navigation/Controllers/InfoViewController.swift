@@ -2,7 +2,7 @@
 //  InfoViewController.swift
 //  Navigation
 //
-//  Created by MacBook on 24.11.2022.
+//  Created by Andrey Androsov on 24.11.2022.
 //
 
 import UIKit

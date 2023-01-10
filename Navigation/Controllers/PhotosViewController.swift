@@ -2,7 +2,7 @@
 //  PhotosViewController.swift
 //  Navigation
 //
-//  Created by MacBook on 28.12.2022.
+//  Created by Andrey Androsov on 28.12.2022.
 //
 
 import UIKit

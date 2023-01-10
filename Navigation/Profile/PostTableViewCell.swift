@@ -2,7 +2,7 @@
 //  PostTableViewCell.swift
 //  Navigation
 //
-//  Created by MacBook on 16.12.2022.
+//  Created by Andrey Androsov on 16.12.2022.
 //
 
 import UIKit
