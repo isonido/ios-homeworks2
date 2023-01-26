@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
 
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -56,6 +56,16 @@ class LogInViewController: UIViewController {
         logoVk.image = UIImage(named: "logo")
         logoVk.translatesAutoresizingMaskIntoConstraints = false
         return logoVk
+    }()
+    
+    private var hiddenLabel: UILabel = {
+        let hiddenLabel = UILabel()
+        hiddenLabel.text = "Количество символов меньше 6"
+        hiddenLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
+        hiddenLabel.textColor = .systemRed
+        hiddenLabel.isHidden = true
+        hiddenLabel.translatesAutoresizingMaskIntoConstraints = false
+        return hiddenLabel
     }()
     
     private var loginTf: UITextField = {
@@ -112,6 +122,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(textFieldContainer)
         textFieldContainer.addSubview(loginTf)
         textFieldContainer.addSubview(passwordTf)
+        contentView.addSubview(hiddenLabel)
         contentView.addSubview(logInButton)
         
         scrollView.keyboardDismissMode = .interactive
@@ -172,7 +183,10 @@ class LogInViewController: UIViewController {
             passwordTf.trailingAnchor.constraint(equalTo: textFieldContainer.trailingAnchor),
             passwordTf.heightAnchor.constraint(equalToConstant: 49.75),
             
-            logInButton.topAnchor.constraint(equalTo: textFieldContainer.bottomAnchor, constant: 16),
+            hiddenLabel.topAnchor.constraint(equalTo: textFieldContainer.bottomAnchor, constant: 8),
+            hiddenLabel.leadingAnchor.constraint(equalTo: textFieldContainer.leadingAnchor),
+            
+            logInButton.topAnchor.constraint(equalTo: hiddenLabel.bottomAnchor, constant: 8),
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
