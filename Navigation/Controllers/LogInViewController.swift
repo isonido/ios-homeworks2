@@ -47,7 +47,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInButton.tintColor = .white
         logInButton.layer.cornerRadius = 10
         logInButton.translatesAutoresizingMaskIntoConstraints = false
-        logInButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        logInButton.addTarget(self, action: #selector(logInBtn), for: .touchUpInside)
         return logInButton
     }()
     
@@ -68,7 +68,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return hiddenLabel
     }()
     
-    private var loginTf: UITextField = {
+    private lazy var loginTf: UITextField = {
         let loginTf = UITextField()
         loginTf.backgroundColor = .systemGray6
         loginTf.textAlignment = .left
@@ -79,10 +79,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginTf.tintColor = UIColor(named: "AccentColor")
         loginTf.autocapitalizationType = .none
         loginTf.translatesAutoresizingMaskIntoConstraints = false
+        loginTf.addTarget(self, action: #selector(loginTfChanged), for: .editingChanged)
         return loginTf
     }()
     
-    private var passwordTf: UITextField = {
+    private lazy var passwordTf: UITextField = {
         let passwordTf = UITextField()
         passwordTf.backgroundColor = .systemGray6
         passwordTf.isSecureTextEntry = true
@@ -94,6 +95,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         passwordTf.tintColor = UIColor(named: "AccentColor")
         passwordTf.autocapitalizationType = .none
         passwordTf.translatesAutoresizingMaskIntoConstraints = false
+        passwordTf.addTarget(self, action: #selector(passwordTfChanged), for: .editingChanged)
         return passwordTf
     }()
     
@@ -127,10 +129,63 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         scrollView.keyboardDismissMode = .interactive
     }
+
+    func validBy(email: String) -> Bool {
+        let eMailPattern = #""" """#
+        let result = email.range(of: eMailPattern, options: .regularExpression)
+        let validEmail = (result != nil)
+        return validEmail
+    }
     
-    @objc func buttonPressed(sender:UIButton){
-        let profileViewController = ProfileViewController()
-        self.navigationController?.pushViewController(profileViewController, animated: true)
+    @objc func logInBtn(sender:UIButton){
+        if loginTf.text?.count == 0 {
+            if passwordTf.text?.count == 0 {
+                UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+                    passwordTf.backgroundColor = .red
+                } completion: { _ in
+                    UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                        passwordTf.backgroundColor = .systemGray6
+                    }
+                }
+            }
+            UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+                loginTf.backgroundColor = .red
+            } completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                    loginTf.backgroundColor = .systemGray6
+                }
+            }
+        } else if passwordTf.text?.count == 0 {
+            UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+                passwordTf.backgroundColor = .red
+            } completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                    passwordTf.backgroundColor = .systemGray6
+                }
+            }
+        } else {
+            let profileViewController = ProfileViewController()
+            self.navigationController?.pushViewController(profileViewController, animated: true)
+        }
+    }
+    
+    @objc func loginTfChanged(_ textField: UITextField) {
+        
+    }
+    
+    @objc func passwordTfChanged(_ textField: UITextField) {
+        let textCount = textField.text?.count
+        if let tc = textCount {
+            if tc < 6 {
+                if tc == 0 {
+                    hiddenLabel.isHidden = true
+                } else {
+                    hiddenLabel.isHidden = false
+                }
+            } else {
+                hiddenLabel.isHidden = true
+            }
+        }
     }
     
     func subscribeKeyboardEvents(){
@@ -210,5 +265,11 @@ extension UITextField {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
         self.leftView = paddingView
         self.leftViewMode = .always
+    }
+}
+
+extension String {
+    func isValidEmail() -> Bool {
+        return true
     }
 }
