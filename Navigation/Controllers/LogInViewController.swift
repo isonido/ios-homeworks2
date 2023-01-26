@@ -105,7 +105,8 @@ class LogInViewController: UIViewController {
     }
     
     private func setupViews() {
-        self.view.addSubview(scrollView)
+        view.backgroundColor = .white
+        view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(logoVk)
         contentView.addSubview(textFieldContainer)
