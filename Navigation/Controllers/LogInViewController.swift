@@ -140,32 +140,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func logInBtn(sender:UIButton){
         if loginTf.text?.count == 0 {
             if passwordTf.text?.count == 0 {
-                UIView.animate(withDuration: 0.05, delay: 0) { [self] in
-                    passwordTf.backgroundColor = .red
-                } completion: { _ in
-                    UIView.animate(withDuration: 0.5, delay: 0) { [self] in
-                        passwordTf.backgroundColor = .systemGray6
-                    }
-                }
+                checkEmptyPassword()
             }
-            UIView.animate(withDuration: 0.05, delay: 0) { [self] in
-                loginTf.backgroundColor = .red
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0) { [self] in
-                    loginTf.backgroundColor = .systemGray6
-                }
-            }
+            checkEmptyLogin()
         } else if passwordTf.text?.count == 0 {
-            UIView.animate(withDuration: 0.05, delay: 0) { [self] in
-                passwordTf.backgroundColor = .red
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0) { [self] in
-                    passwordTf.backgroundColor = .systemGray6
-                }
-            }
+            checkEmptyPassword()
         } else {
-            let profileViewController = ProfileViewController()
-            self.navigationController?.pushViewController(profileViewController, animated: true)
+            if loginTf.text != "vk@vk.com" {
+                let alert = UIAlertController(title: "Ошибка!", message: "Неверный логин\nлогин vk@vk.com", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Отмена", style: .cancel ))
+                present(alert, animated: true, completion: nil)
+            } else if passwordTf.text! != "123456" {
+                let alert = UIAlertController(title: "Ошибка!", message: "Неверный пароль\nпароль от 1 до 6", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Отмена", style: .cancel ))
+                present(alert, animated: true, completion: nil)
+            } else {
+                let profileViewController = ProfileViewController()
+                self.navigationController?.pushViewController(profileViewController, animated: true)
+            }
         }
     }
     
@@ -247,6 +239,26 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    private func checkEmptyLogin() {
+        UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+            loginTf.backgroundColor = .red
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                loginTf.backgroundColor = .systemGray6
+            }
+        }
+    }
+    
+    private func checkEmptyPassword() {
+        UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+            passwordTf.backgroundColor = .red
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                passwordTf.backgroundColor = .systemGray6
+            }
+        }
     }
 }
 
