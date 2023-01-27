@@ -144,7 +144,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         } else if passwordTf.text?.count == 0 {
             checkEmptyPassword()
         } else {
-            //checkEmail()
             if loginTf.text != "vk@vk.com" {
                 let alert = UIAlertController(title: "Ошибка!", message: "Неверный логин\nлогин vk@vk.com", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Отмена", style: .cancel ))
