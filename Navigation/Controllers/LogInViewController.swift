@@ -60,7 +60,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     private var hiddenLabel: UILabel = {
         let hiddenLabel = UILabel()
-        hiddenLabel.text = "Количество символов меньше 6"
         hiddenLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         hiddenLabel.textColor = .systemRed
         hiddenLabel.isHidden = true
@@ -79,7 +78,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginTf.tintColor = UIColor(named: "AccentColor")
         loginTf.autocapitalizationType = .none
         loginTf.translatesAutoresizingMaskIntoConstraints = false
-        loginTf.addTarget(self, action: #selector(loginTfChanged), for: .editingChanged)
         return loginTf
     }()
     
@@ -131,7 +129,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
 
     func validBy(email: String) -> Bool {
-        let eMailPattern = #""" """#
+        let eMailPattern = #"^[a-z0-9][-._a-z0-9]{0,20}@[a-z0-9][-.a-z0-9]{0,30}[a-z0-9].[a-z]{2,8}$"#
         let result = email.range(of: eMailPattern, options: .regularExpression)
         let validEmail = (result != nil)
         return validEmail
@@ -146,6 +144,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         } else if passwordTf.text?.count == 0 {
             checkEmptyPassword()
         } else {
+            //checkEmail()
             if loginTf.text != "vk@vk.com" {
                 let alert = UIAlertController(title: "Ошибка!", message: "Неверный логин\nлогин vk@vk.com", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Отмена", style: .cancel ))
@@ -159,15 +158,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 self.navigationController?.pushViewController(profileViewController, animated: true)
             }
         }
-    }
-    
-    @objc func loginTfChanged(_ textField: UITextField) {
-        
+        checkEmail()
     }
     
     @objc func passwordTfChanged(_ textField: UITextField) {
         let textCount = textField.text?.count
         if let tc = textCount {
+            hiddenLabel.text = "Количество символов меньше 6"
             if tc < 6 {
                 if tc == 0 {
                     hiddenLabel.isHidden = true
@@ -260,6 +257,16 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    private func checkEmail() {
+        let isValid = validBy(email: loginTf.text ?? "")
+        if !isValid {
+            hiddenLabel.text = "Формат e-mail: xx@xx.xx"
+            hiddenLabel.isHidden = false
+        } else {
+            hiddenLabel.isHidden = true
+        }
+    }
 }
 
 extension UIImage {
@@ -279,9 +286,10 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
-
+/*
 extension String {
     func isValidEmail() -> Bool {
         return true
     }
 }
+*/
