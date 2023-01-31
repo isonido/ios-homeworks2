@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UIView, UITextFieldDelegate {
+    
+    private var statusText: String = ""
     
     private lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
@@ -42,16 +44,32 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
+    private lazy var statusField: UITextField = {
+        let statusField = UITextField()
+        statusField.backgroundColor = .white
+        statusField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        statusField.textColor = .black
+        statusField.placeholder = "Новый статус"
+        statusField.layer.cornerRadius = 12
+        statusField.layer.borderWidth = 1
+        statusField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        statusField.leftViewMode = .always
+        statusField.delegate = self
+        statusField.translatesAutoresizingMaskIntoConstraints = false
+        statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        return statusField
+    }()
+    
     private lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton()
         setStatusButton.backgroundColor = .systemBlue
-        setStatusButton.setTitle("Show status", for: .normal)
+        setStatusButton.setTitle("Set status", for: .normal)
         setStatusButton.tintColor = .white
         setStatusButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
         setStatusButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.layer.shadowRadius = 4.0
-        setStatusButton.layer.cornerRadius = 4.0
+        setStatusButton.layer.cornerRadius = 14.0
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return setStatusButton
@@ -87,6 +105,7 @@ class ProfileHeaderView: UIView {
     func loadObject() {
         addSubview(fullNameLabel)
         addSubview(statusTextField)
+        addSubview(statusField)
         addSubview(setStatusButton)
         addSubview(viewFon)
         addSubview(avatarImageView)
@@ -94,7 +113,11 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed(sender:UIButton){
-        print(statusTextField.text ?? "")
+        if statusField.text?.count == 0 {
+            checkEmptyTf()
+        } else {
+            statusTextField.text = statusText
+        }
     }
     
     private func setup() {
@@ -104,9 +127,9 @@ class ProfileHeaderView: UIView {
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
-            setStatusButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            setStatusButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 32),
+            setStatusButton.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
+            setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
@@ -114,10 +137,15 @@ class ProfileHeaderView: UIView {
             fullNameLabel.widthAnchor.constraint(equalToConstant: 150),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 21),
             
-            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
+            statusTextField.bottomAnchor.constraint(equalTo: statusField.topAnchor, constant: -8),
             statusTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 140),
             statusTextField.widthAnchor.constraint(equalToConstant: 150),
             statusTextField.heightAnchor.constraint(equalToConstant: 21),
+            
+            statusField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -8),
+            statusField.heightAnchor.constraint(equalToConstant: 40),
+            statusField.leadingAnchor.constraint(equalTo: statusTextField.leadingAnchor),
+            statusField.trailingAnchor.constraint(equalTo: setStatusButton.trailingAnchor),
             
             cancelButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6),
             cancelButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -6)
@@ -139,7 +167,6 @@ class ProfileHeaderView: UIView {
             avatarImageView.layer.cornerRadius = 0
             avatarImageView.center.x = UIScreen.main.bounds.width/2
             avatarImageView.center.y = UIScreen.main.bounds.height/2 - 44
-            // здесь я не смог найти высоту статус бара, постал просто 44
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0) { [self] in
                 cancelButton.alpha = 1
@@ -147,6 +174,10 @@ class ProfileHeaderView: UIView {
         }
     }
     
+    @objc func statusTextChanged() {
+        statusText = statusField.text ?? ""
+    }
+
     @objc func cancelAnimate() {
         UIView.animate(withDuration: 0.3, delay: 0) { [self] in
             cancelButton.alpha = 0
@@ -156,6 +187,16 @@ class ProfileHeaderView: UIView {
                 avatarImageView.center = avatarCenter
                 avatarImageView.bounds = avatarBounds
                 avatarImageView.layer.cornerRadius = 50
+            }
+        }
+    }
+    
+    private func checkEmptyTf() {
+        UIView.animate(withDuration: 0.05, delay: 0) { [self] in
+            statusField.backgroundColor = .red
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 0) { [self] in
+                statusField.backgroundColor = .white
             }
         }
     }
