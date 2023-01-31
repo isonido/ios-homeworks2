@@ -64,11 +64,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
-            cell.authorCell.text = dataSource[indexPath.row].author
-            cell.imageCell.image = UIImage(named: dataSource[indexPath.row].image)
-            cell.descriptionCell.text = dataSource[indexPath.row].description
-            cell.likesCell.text = "Likes: \(dataSource[indexPath.row].likes)"
-            cell.viewsCell.text = "Views: \(dataSource[indexPath.row].views)"
+            cell.config(indexPath: indexPath.row)
             return cell
         } else {
             return PhotosTableViewCell()
@@ -79,5 +75,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        indexPath.section == 0 ? .none : .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        dataSource.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.reloadData()
     }
 }

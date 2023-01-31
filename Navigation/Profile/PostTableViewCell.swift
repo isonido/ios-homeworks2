@@ -8,6 +8,8 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
+    
+    var indexPath = 0
 
     var authorCell: UILabel = {
         let authorCell = UILabel()
@@ -18,27 +20,31 @@ class PostTableViewCell: UITableViewCell {
         return authorCell
     }()
     
-    var imageCell: UIImageView = {
+    lazy var imageCell: UIImageView = {
         let imageCell = UIImageView()
         imageCell.contentMode = .scaleToFill
         imageCell.backgroundColor = .black
+        imageCell.isUserInteractionEnabled = true
+        imageCell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapImage)))
         imageCell.translatesAutoresizingMaskIntoConstraints = false
         return imageCell
     }()
     
     var descriptionCell: UILabel = {
         let descriptionCell = UILabel()
-        descriptionCell.numberOfLines = 0
+        descriptionCell.numberOfLines = 2
         descriptionCell.font = UIFont.systemFont(ofSize: 14)
         descriptionCell.textColor = .systemGray
         descriptionCell.translatesAutoresizingMaskIntoConstraints = false
         return descriptionCell
     }()
     
-    var likesCell: UILabel = {
+    lazy var likesCell: UILabel = {
         let likesCell = UILabel()
         likesCell.font = UIFont.systemFont(ofSize: 16)
         likesCell.textColor = .black
+        likesCell.isUserInteractionEnabled = true
+        likesCell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapLike)))
         likesCell.translatesAutoresizingMaskIntoConstraints = false
         return likesCell
     }()
@@ -90,5 +96,31 @@ class PostTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func tapLike(){
+        dataSource[indexPath].likes += 1
+        likesCell.text = "Likes: \(dataSource[indexPath].likes)"
+    }
+    
+    @objc func tapImage(){
+        dataSource[indexPath].views += 1
+        viewsCell.text = "Views: \(dataSource[indexPath].views)"
+        
+        let postView = PostDetailView()
+        postView.indexPath = indexPath
+        let navigationController = ((superview as? UITableView)?.dataSource as? UIViewController)?.navigationController
+        let navController = UINavigationController(rootViewController: postView)
+        navController.modalPresentationStyle = .fullScreen
+        navigationController?.present(navController, animated: true)
+    }
+    
+    func config(indexPath: Int) {
+        self.indexPath = indexPath
+        authorCell.text = dataSource[indexPath].author
+        imageCell.image = UIImage(named: dataSource[indexPath].image)
+        descriptionCell.text = dataSource[indexPath].description
+        likesCell.text = "Likes: \(dataSource[indexPath].likes)"
+        viewsCell.text = "Views: \(dataSource[indexPath].views)"
     }
 }
