@@ -285,10 +285,3 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
-/*
-extension String {
-    func isValidEmail() -> Bool {
-        return true
-    }
-}
-*/

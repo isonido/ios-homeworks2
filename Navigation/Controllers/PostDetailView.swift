@@ -24,7 +24,6 @@ class PostDetailView: UIViewController {
         let descriptionDetail = UITextView()
         descriptionDetail.isScrollEnabled = false
         descriptionDetail.sizeToFit()
-        //descriptionDetail.textContainer.lineFragmentPadding = 0
         descriptionDetail.font = UIFont.systemFont(ofSize: 17)
         descriptionDetail.textColor = .black
         descriptionDetail.translatesAutoresizingMaskIntoConstraints = false

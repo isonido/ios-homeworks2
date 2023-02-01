@@ -12,10 +12,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //self.navigationItem.title = "Мой пост"
-
         self.view.backgroundColor = .brown
-        
         let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(buttonClick))
         self.navigationItem.rightBarButtonItem = button
     }
