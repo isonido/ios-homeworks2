@@ -53,10 +53,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         section == 0 ? ProfileHeaderView() : nil
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == 0 ? 210 : 0
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         section == 0 ? 1 : dataSource.count
     }
